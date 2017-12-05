@@ -139,8 +139,8 @@ public class ZoomingEffect {
             transition.play();
 
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), label);
-            scaleTransition.setToX(2.5);
-            scaleTransition.setToY(2.5);
+            scaleTransition.setToX(2);
+            scaleTransition.setToY(2);
             scaleTransition.setAutoReverse(true);
 
             scaleTransition.play();

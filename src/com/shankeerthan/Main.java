@@ -84,6 +84,8 @@ public class Main extends Application {
 
 
         primaryStage.show();
+        StartingTips.run();
+
     }
 
     private void addNodesToRoot(BorderPane root) {
@@ -240,18 +242,22 @@ public class Main extends Application {
 //        temperatureCursorButton.setGraphic(new ImageView(temperatureCursorIcon));
 
        Label temperatureUnitLabel = new Label("C");//------------------------Changed
-       ZoomingEffect.setLabelEffect(temperatureUnitLabel,container);
+        temperatureUnitLabel.setFont(new Font("Arial Black" ,28));//+++++++++++++++++++++++++++
+
+        ZoomingEffect.setLabelEffect(temperatureUnitLabel,container);
         temperatureUnitLabel.getStyleClass().add("label1");
         temperatureUnitLabel.setTooltip(new Tooltip("Unit of Temperature"));
 
         //Label to show current low point of range
         Label lowPointLabel = new Label(Values.LOW_TEM_REGION);  //++++++++++++++++++++++++++++++++++++changed
+
         lowPointLabel.getStyleClass().add("label1");
-        lowPointLabel.setFont(new Font(12));//+++++++++++++++++++++++++++
+        lowPointLabel.setFont(new Font("Arial Black" ,28));//+++++++++++++++++++++++++++
         lowPointLabel.setTooltip(new Tooltip("Low Point of Temperature Range"));
         ZoomingEffect.setLabelEffect(lowPointLabel,container);
         //label to show current temperature high point of range
-        Label highPointLabel = new Label(Values.HIGH_TEM_REGION);     //++++++++++++++++++++++changed
+        Label highPointLabel = new Label(Values.HIGH_TEM_REGION);
+        highPointLabel.setFont(new Font("Arial Black" ,28));//+++++++++++++++++++++++++++//++++++++++++++++++++++changed
         highPointLabel.getStyleClass().add("label1");       //++++++++++++++++++++++++++++++changed
         highPointLabel.setTooltip(new Tooltip("High Point of Temperature Range"));
         ZoomingEffect.setLabelEffect(highPointLabel,container);

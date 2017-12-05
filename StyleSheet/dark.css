@@ -58,7 +58,12 @@
 .label{
       /*-fx-font: 28px Arial;*/
      -fx-text-fill: white;
+        /* -fx-font-stroke-color : black;
+             -fx-font-stroke-width: 20px;*/
+
+
      /*-fx-font-weight: bold;*/
 
 
 }
+

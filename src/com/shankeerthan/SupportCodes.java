@@ -6,8 +6,10 @@ import com.drew.metadata.Tag;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -45,6 +47,10 @@ public class SupportCodes {
             alert.setTitle("Warning Dialog");
             alert.setHeaderText("Look, Image could not be Opened");
             alert.setContentText("Please Try Again!");
+            // Get the Stage.
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            // Add a custom icon.
+            stage.getIcons().add(new Image("file:NewIcons/main64.png")); // To add an icon
             alert.showAndWait();
         } else {
 
@@ -82,6 +88,10 @@ public class SupportCodes {
 
             // Set expandable Exception into the dialog pane.
             alert.getDialogPane().setExpandableContent(expContent);
+            // Get the Stage.
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            // Add a custom icon.
+            stage.getIcons().add(new Image("file:NewIcons/main64.png")); // To add an icon
             alert.showAndWait();
 
             // Set expandable Exception into the dialog pane.
