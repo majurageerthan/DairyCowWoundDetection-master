@@ -143,7 +143,8 @@ public class Main extends Application {
 
         handleComboBox(colorPallete);
         colorPallete.getStyleClass().add("combobox");
-        colorPallete.getItems().addAll("Fusion", "Ironbow 1", "Ironbow 2", "Rainbow", "Rain", "Sepia", "Glowbow", "White Hot", "Black Hot", "Ice and Fire", "Color 1", "Color 2");
+        colorPallete.getItems().addAll("Iron","Lava","Arctic","Gray","Rainbow","Rainbow HC");
+        colorPallete.getSelectionModel().selectFirst();
 
 
         //zoom  button
@@ -249,7 +250,7 @@ public class Main extends Application {
 
         //Temperature Range Setting
         Button temperatureRangeButton = new Button();
-        handleTemperatureRange(temperatureRangeButton);
+        handleTemperatureRange(temperatureRangeButton,highPointLabel,lowPointLabel);
         temperatureRangeButton.setTooltip(new Tooltip("Set Low and High Temperature"));
 //        Image temperatureRangeIcon = new Image("file:" + "Icons/tem_range.png");
 //       temperatureRangeButton.setGraphic(new ImageView(temperatureRangeIcon));
@@ -427,7 +428,7 @@ public class Main extends Application {
         });
     }
 
-    private void handleTemperatureRange(Button button) {
+    private void handleTemperatureRange(Button button,Label high,Label low) {
         /*
         This method handle when button is clicked it get low point,high point of temperature scale range
         and Range of Interest  And  give of choice to user ues what ever the unit from user
@@ -438,55 +439,57 @@ public class Main extends Application {
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
-                final Stage dialog = new Stage();
-                stage.setTitle("Adjust Temperature Scale Setting");
+                final Stage dialog =new Stage();
+                dialog.setTitle("Adjust Temperature Scale Setting");
                 dialog.initModality(Modality.APPLICATION_MODAL);
                 dialog.initOwner(stage);
 
 
-                GridPane grid = new GridPane();
+                GridPane grid =new GridPane();
 
-                Label selectUnit = new Label("Temperature Unit");
+                Label selectUnit =new Label("Temperature Unit");
 
-                ComboBox<String> unitSelection = new ComboBox<String>();
-                unitSelection.getItems().addAll("Celcious", "Frahneit", "Kelvin");
+                ComboBox <String> unitSelection =new ComboBox<String>();
+                unitSelection.getItems().addAll("Celcious","Frahneit","Kelvin");
                 unitSelection.getSelectionModel().selectFirst();
 
 
-                Label temperatureScale = new Label("Adjust Temperature Scale Range");
+                Label temperatureScale =new Label("Adjust Temperature Scale Range");
 
-                Label highPoint = new Label("High Temperature of Range");
-                Label lowPoint = new Label("Low Temperature of Range");
+                Label highPoint =new Label("High Temperature of Range");
+                Label lowPoint =new Label("Low Temperature of Range");
 
-                TextField highPointText = new TextField(Values.HIGH_TEM_SCALE_RANGE);
-                TextField lowPointText = new TextField(Values.LOW_TEM_SCALE_RANGE);
+                TextField highPointText =new TextField(Double.toString(scaleTemMax));
+                TextField lowPointText =new TextField(Double.toString(scaleTemMin));
 
-                Label regionOfInterest = new Label("Region of Interset Temperature Scale");
+                Label regionOfInterest =new Label("Region of Interset Temperature Scale");
 
-                Label highPointOfRegion = new Label("High Temperature");
-                Label lowPointOfRegion = new Label("Low Temperature ");
+                Label highPointOfRegion =new Label("High Temperature");
+                Label lowPointOfRegion =new Label("Low Temperature ");
 
-                TextField highPointRegionText = new TextField(Values.HIGH_TEM_REGION);
-                TextField lowPonitRegionText = new TextField(Values.LOW_TEM_REGION);
+                TextField highPointRegionText =new TextField(Double.toString(interestRangeMax));
+                TextField lowPonitRegionText =new TextField(Double.toString(interestRangeMin));
 
-                Button setRanges = new Button("Apply");
+                Button setRanges =new Button("Apply");
 
                 setRanges.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        try {
-                            scaleTemMax = Double.parseDouble(highPointText.getText());
-                            scaleTemMin = Double.parseDouble(lowPointText.getText());
-                            interestRangeMax = Double.parseDouble(highPointRegionText.getText());
-                            interestRangeMin = Double.parseDouble(lowPonitRegionText.getText());
-                            unit = unitSelection.getSelectionModel().getSelectedIndex();
-                        } catch (NumberFormatException e) {
+                        try{
+                            scaleTemMax=Double.parseDouble(highPointText.getText());
+                            scaleTemMin=Double.parseDouble(lowPointText.getText());
+                            interestRangeMax=Double.parseDouble(highPointRegionText.getText());
+                            interestRangeMin =Double.parseDouble(lowPonitRegionText.getText());
+                            unit=unitSelection.getSelectionModel().getSelectedIndex();
+                            high.setText(highPointRegionText.getText());
+                            low.setText(lowPonitRegionText.getText());
+                            dialog.close();
+                        }catch (NumberFormatException e){
                             System.out.println(e);
                         }
                     }
                 });
-                Button reset = new Button("Reset");
+                Button reset =new Button("Reset");
                 reset.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
@@ -497,25 +500,26 @@ public class Main extends Application {
                     }
                 });
 
-                grid.add(selectUnit, 0, 0);
-                grid.add(unitSelection, 1, 0);
-                grid.add(temperatureScale, 0, 1);
-                grid.add(highPoint, 0, 2);
-                grid.add(highPointText, 1, 2);
-                grid.add(lowPoint, 0, 3);
-                grid.add(lowPointText, 1, 3);
-                grid.add(regionOfInterest, 0, 4);
-                grid.add(highPointOfRegion, 0, 5);
-                grid.add(highPointRegionText, 1, 5);
-                grid.add(lowPointOfRegion, 0, 6);
-                grid.add(lowPonitRegionText, 1, 6);
-                grid.add(setRanges, 0, 7);
-                grid.add(reset, 1, 7);
+                grid.add(selectUnit,0,0);
+                grid.add(unitSelection,1,0);
+                grid.add(temperatureScale,0,1);
+                grid.add(highPoint,0,2);
+                grid.add(highPointText,1,2);
+                grid.add(lowPoint,0,3);
+                grid.add(lowPointText,1,3);
+                grid.add(regionOfInterest,0,4);
+                grid.add(highPointOfRegion,0,5);
+                grid.add(highPointRegionText,1,5);
+                grid.add(lowPointOfRegion,0,6);
+                grid.add(lowPonitRegionText,1,6);
+                grid.add(setRanges,0,7);
+                grid.add(reset,1,7);
 
                 grid.setVgap(Values.GRID_VGAP);
                 Scene dialogScene = new Scene(grid, 400, 400);
                 dialog.setScene(dialogScene);
                 dialog.show();
+
 
             }
         });
