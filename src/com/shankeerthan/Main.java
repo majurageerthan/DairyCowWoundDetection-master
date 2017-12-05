@@ -19,12 +19,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.*;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.net.MalformedURLException;
+
+import static javafx.scene.text.TextAlignment.*;
 
 
 public class Main extends Application {
@@ -120,6 +123,10 @@ public class Main extends Application {
     }
 
     private void designTopBar(HBox container, VBox vBox, BorderPane pane) {
+            //Region
+        Region spacing = new Region();
+        HBox.setHgrow(spacing,Priority.ALWAYS);
+
         //Menu button
         Button smallMenuButton = new Button();
         handleSmallMenuButton(smallMenuButton, container, pane);
@@ -131,6 +138,8 @@ public class Main extends Application {
         Canvas nameCanvas = new Canvas();
         nameCanvas.setWidth(Values.DEFAULT_NAME_CANVAS_WIDTH);
         nameCanvas.setHeight(Values.DEFAULT_TOP_BAR_NODES_HEIGHT);
+
+
 
         //Zoom Selecton Button
         Button zoomSelectionButton = new Button();
@@ -185,10 +194,11 @@ public class Main extends Application {
         Image aboutUsIcon = new Image("file:" + "Icons/about_us.png");
         aboutUsButton.setGraphic(new ImageView(aboutUsIcon));
 
-
         container.setSpacing(Values.TOP_BOX_SPACING);
         container.getChildren().add(smallMenuButton);
         container.getChildren().add(nameCanvas);
+        container.getChildren().add(spacing);
+
         container.getChildren().add(zoomSelectionButton);
         container.getChildren().add(colorPallete);
         container.getChildren().add(zoomButton);
@@ -198,6 +208,7 @@ public class Main extends Application {
         container.getChildren().add(showSidebarButton);
         container.getChildren().add(hideSidebarButton);
         container.getChildren().add(aboutUsButton);
+
     }
 
 
@@ -228,20 +239,22 @@ public class Main extends Application {
 //        Image temperatureCursorIcon = new Image("file:" + "Icons/cursor.png");
 //        temperatureCursorButton.setGraphic(new ImageView(temperatureCursorIcon));
 
-        Label temperatureUnitLabel = new Label("C");//------------------------Changed
+       Label temperatureUnitLabel = new Label("C");//------------------------Changed
+       ZoomingEffect.setLabelEffect(temperatureUnitLabel,container);
         temperatureUnitLabel.getStyleClass().add("label1");
         temperatureUnitLabel.setTooltip(new Tooltip("Unit of Temperature"));
 
         //Label to show current low point of range
         Label lowPointLabel = new Label(Values.LOW_TEM_REGION);  //++++++++++++++++++++++++++++++++++++changed
-        lowPointLabel.getStyleClass().add("label1");            //+++++++++++++++++++++++++++
+        lowPointLabel.getStyleClass().add("label1");
+        lowPointLabel.setFont(new Font(12));//+++++++++++++++++++++++++++
         lowPointLabel.setTooltip(new Tooltip("Low Point of Temperature Range"));
-
+        ZoomingEffect.setLabelEffect(lowPointLabel,container);
         //label to show current temperature high point of range
         Label highPointLabel = new Label(Values.HIGH_TEM_REGION);     //++++++++++++++++++++++changed
         highPointLabel.getStyleClass().add("label1");       //++++++++++++++++++++++++++++++changed
         highPointLabel.setTooltip(new Tooltip("High Point of Temperature Range"));
-
+        ZoomingEffect.setLabelEffect(highPointLabel,container);
 
 
 
@@ -308,6 +321,7 @@ public class Main extends Application {
                 openImageButton, openFolderbutton, copyImageButton, propertiesButton, container);
 
         container.setSpacing(Values.SIDE_BOX_SPACING);
+        container.setAlignment(Pos.CENTER);
         container.setPadding(new Insets(Values.SIDE_BOX_PADDING_TOP_BOTTOM, 0, 0, 0));
         container.getChildren().add(temperatureCursorButton);
         container.getChildren().add(temperatureRangeButton);
@@ -602,7 +616,7 @@ public class Main extends Application {
                 File dir =directoryChooser.showDialog(stage);
 
 
-                //try {
+                try {
                     File file;
                     File[] files = dir.listFiles(new FileFilter() {
                         @Override
@@ -674,9 +688,9 @@ public class Main extends Application {
                     }
 
 
-                /*} catch (NullPointerException e) {
-                    System.out.println("gdfgdfg");
-                }*/
+                } catch (NullPointerException e) {
+                    //System.out.println("gdfgdfg");
+                }
 
 
             }

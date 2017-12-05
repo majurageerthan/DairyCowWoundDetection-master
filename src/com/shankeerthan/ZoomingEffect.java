@@ -4,6 +4,7 @@ import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -126,6 +127,41 @@ public class ZoomingEffect {
         button.setGraphic(imageView);
         handleZoomEffect(button, vBox);
 
+
+    }
+
+    public  static void setLabelEffect(Label label , VBox vBox){
+        label.setOnMouseEntered( event -> {
+            TranslateTransition transition = new TranslateTransition();
+            transition.setDuration(Duration.millis(50));
+            transition.setNode(vBox);
+            transition.setToX(-15);
+            transition.play();
+
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), label);
+            scaleTransition.setToX(2.5);
+            scaleTransition.setToY(2.5);
+            scaleTransition.setAutoReverse(true);
+
+            scaleTransition.play();
+        });
+
+        label.setOnMouseExited(event -> {
+            TranslateTransition transition = new TranslateTransition();
+            transition.setDuration(Duration.millis(50));
+            transition.setNode(vBox);
+            transition.setToX(0);
+            transition.play();
+
+
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), label);
+            scaleTransition.setToX(1f);
+            scaleTransition.setToY(1f);
+
+            scaleTransition.setAutoReverse(true);
+
+            scaleTransition.play();
+        });
 
     }
 
