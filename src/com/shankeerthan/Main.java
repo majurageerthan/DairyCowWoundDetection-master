@@ -685,6 +685,7 @@ public class Main extends Application {
     }
 
     private HBox setImageView() {
+
         HBox container = new HBox();
 
         imageView = new ImageView(images[0]);
@@ -694,9 +695,14 @@ public class Main extends Application {
         VBox.setVgrow(region3, Priority.ALWAYS);
         VBox.setVgrow(region4, Priority.ALWAYS);
         box1.getChildren().addAll(region3, imageView, region4);
+        Image leftBut = new Image("file:" + "NeWIcons/left.png");
 
         Button left = new Button("left");
+        left.setGraphic(new ImageView(leftBut));
+
         left.getStyleClass().add("button");
+
+
         VBox box2 = new VBox();
         Region region5 = new Region();
         Region region6 = new Region();
@@ -706,8 +712,11 @@ public class Main extends Application {
 
 
         Button right = new Button("right");
-
         right.getStyleClass().add("button");
+
+        Image rightBut = new Image("file:" + "NewIcons/right.png");
+        right.setGraphic(new ImageView(rightBut));
+
         VBox box3 = new VBox();
         Region region7 = new Region();
         Region region8 = new Region();
